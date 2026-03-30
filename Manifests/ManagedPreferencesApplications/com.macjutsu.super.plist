@@ -11,7 +11,7 @@
 	<key>pfm_format_version</key>
 	<integer>1</integer>
 	<key>pfm_last_modified</key>
-	<date>2025-02-18T12:56:00Z</date>
+	<date>2026-03-26T12:00:00Z</date>
 	<key>pfm_macos_min</key>
 	<string>11.0</string>
 	<key>pfm_platforms</key>
@@ -168,7 +168,6 @@ During a profile replacement, the system updates payloads with the same 'Payload
 					<string>DialogTimeoutInsufficientStorage</string>
 					<string>DialogTimeoutPowerRequired</string>
 					<string>DialogTimeoutRestartOrDefer</string>
-					<string>DialogTimeoutRestartOrDefer</string>
 					<string>DialogTimeoutSoftDeadline</string>
 					<string>DialogTimeoutUserAuth</string>
 					<string>DialogTimeoutUserChoice</string>
@@ -178,11 +177,11 @@ During a profile replacement, the system updates payloads with the same 'Payload
 					<string>DisplayAccessoryMacOSMajorUpgradeFile</string>
 					<string>DisplayAccessoryMacOSMinorUpdateFile</string>
 					<string>DisplayAccessoryNonSystemUpdatesFile</string>
+					<string>DisplayAccessorySafariUpdateFile</string>
 					<string>DisplayAccessoryRestartWithoutUpdatesFile</string>
 					<string>DisplayAccessoryType</string>
 					<string>DisplayAccessoryUpdateFile</string>
 					<string>DisplayAccessoryUpgradeFile</string>
-					<string>DisplayAccessoryUserAuthFile</string>
 					<string>DisplayHelpButtonString</string>
 					<string>DisplayHideBackground</string>
 					<string>DisplayHideProgressBar</string>
@@ -197,12 +196,16 @@ During a profile replacement, the system updates payloads with the same 'Payload
 				</array>
 				<key>Installation</key>
 				<array>
-					<string>InstallJamfPolicyTriggers</string>
-					<string>InstallJamfPolicyTriggersWithoutRestarting</string>
 					<string>InstallMacOSMajorUpgrades</string>
 					<string>InstallMacOSMajorVersionTarget</string>
-					<string>InstallNonSystemUpdatesWithoutRestarting</string>
+					<string>InstallMacOSMinorVersionTarget</string>
+					<string>InstallMacOSBSIUpdates</string>
 					<string>InstallRapidSecurityResponses</string>
+					<string>InstallNonSystemUpdatesWithoutRestarting</string>
+					<string>InstallSafariUpdatesWithoutRestarting</string>
+					<string>InstallPrioritizeNonRestartUpdates</string>
+					<string>InstallJamfPolicyTriggers</string>
+					<string>InstallJamfPolicyTriggersWithoutRestarting</string>
 				</array>
 				<key>Scheduling</key>
 				<array>
@@ -211,12 +214,16 @@ During a profile replacement, the system updates payloads with the same 'Payload
 					<string>ScheduledInstallReminder</string>
 					<string>ScheduledInstallUserChoice</string>
 					<string>ScheduleWorkflowActive</string>
+					<string>ScheduleDeferredStartFile</string>
+					<string>ScheduleDeferredStartDays</string>
 					<string>ScheduleZeroDateManual</string>
 					<string>ScheduleZeroDateRelease</string>
 					<string>ScheduleZeroDateSOFACustomURL</string>
 				</array>
 				<key>Troubleshoot</key>
 				<array>
+					<string>ConfigCodeSignature</string>
+					<string>ConfigTempOverride</string>
 					<string>TestBatteryLevel</string>
 					<string>TestMode</string>
 					<string>TestModeTimeout</string>
@@ -229,8 +236,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 					<string>WorkflowDisableRelaunch</string>
 					<string>WorkflowDisableUpdateCheck</string>
 					<string>WorkflowInstallNow</string>
-					<string>WorkflowJamfPolicyTriggers</string>
 					<string>WorkflowOnlyDownload</string>
+					<string>WorkflowRequireActiveUser</string>
 					<string>WorkflowRestartWithoutUpdates</string>
 					<string>WorkflowZeroDateManual</string>
 				</array>
@@ -311,8 +318,6 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>The MDM workflow can be unreliable due to its complexity, and super will automatically try again upon failure, however this settings allows super to try other options</string>
 			<key>pfm_documentation_url</key>
 			<string>https://github.com/Macjutsu/super/wiki/Apple-Silicon-Jamf-Pro-API-Credentials#user-authentication-mdm-failover</string>
-			<key>pfm_format</key>
-			<string>^https?://.*</string>
 			<key>pfm_name</key>
 			<string>AuthMDMFailoverToUser</string>
 			<key>pfm_title</key>
@@ -468,15 +473,15 @@ During a profile replacement, the system updates payloads with the same 'Payload
 		</dict>
 		<dict>
 			<key>pfm_app_max</key>
-			<string>4.0.3</string>
+			<string>4.9.9</string>
 			<key>pfm_description</key>
 			<string>Sets an automatic timeout for the restart or defer dialog in seconds</string>
 			<key>pfm_documentation_url</key>
-			<string>https://github.com/Macjutsu/super/wiki/Dialog-Timeouts/3d44b40dc47dd940f5edda8bbabedfacbb79970b#restart-or-defer-dialog-timeout</string>
+			<string>https://github.com/Macjutsu/super/wiki/Dialog-Timeouts#user-choice-dialog-timeout</string>
 			<key>pfm_name</key>
 			<string>DialogTimeoutRestartOrDefer</string>
 			<key>pfm_note</key>
-			<string>Timeouts less than 60 seconds or more than 86400 seconds (1 day) are rounded accordingly</string>
+			<string>Super 5.0+ uses the DialogTimeoutUserChoice key for the same dialog. Timeouts less than 60 seconds or more than 86400 seconds (1 day) are rounded accordingly</string>
 			<key>pfm_title</key>
 			<string>Dialog Timeout Restart Or Defer</string>
 			<key>pfm_type</key>
@@ -488,7 +493,7 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<key>pfm_description</key>
 			<string>Make the super workflow run one or more Jamf Pro Policy Triggers that are comma separated with no spaces</string>
 			<key>pfm_documentation_url</key>
-			<string>https://github.com/Macjutsu/super/wiki/Alternate-Workflows/3d44b40dc47dd940f5edda8bbabedfacbb79970b#run-jamf-pro-policies</string>
+			<string>https://github.com/Macjutsu/super/wiki/Install-Non-System-Items#runinstall-jamf-pro-policies</string>
 			<key>pfm_name</key>
 			<string>WorkflowJamfPolicyTriggers</string>
 			<key>pfm_title</key>
@@ -503,6 +508,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>4.0.3</string>
 			<key>pfm_description</key>
 			<string>Specifies a local path or web URL to a file with the content to be shown in dialogs only when showing the Apple silicon user authentication dialog</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryUserAuthFile</string>
 			<key>pfm_title</key>
@@ -517,6 +524,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>4.0.3</string>
 			<key>pfm_description</key>
 			<string>Specifies a local path or web URL to a file with the content to be shown in dialogs only when performing macOS updates</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryUpdateFile</string>
 			<key>pfm_title</key>
@@ -531,6 +540,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>4.0.3</string>
 			<key>pfm_description</key>
 			<string>Specifies a local path or web URL to a file with the content to be shown in dialogs only when performing macOS upgrades</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryUpgradeFile</string>
 			<key>pfm_title</key>
@@ -545,6 +556,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>4.0.3</string>
 			<key>pfm_description</key>
 			<string>Instead of having super automatically select the beginning date and time of the super workflow (aka. day zero), this option sets a specific date and time as day zero</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Workflow-Schedule-Behavior#schedule-zero-date-manual-override</string>
 			<key>pfm_name</key>
 			<string>WorkflowZeroDateManual</string>
 			<key>pfm_title</key>
@@ -713,6 +726,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>5.0</string>
 			<key>pfm_description</key>
 			<string>Local path or http(s) URL to a file that is the accessory to display when the InstallJamfPolicyTriggers payload option is also enabled and the workflow target is only Jamf Pro Policy Triggers</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryJamfPolicyTriggersFile</string>
 			<key>pfm_title</key>
@@ -727,6 +742,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>5.0</string>
 			<key>pfm_description</key>
 			<string>Local path or http(s) URL to a file that is the accessory to display when performing macOS upgrades</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryMacOSMajorUpgradeFile</string>
 			<key>pfm_title</key>
@@ -741,10 +758,12 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>5.0</string>
 			<key>pfm_description</key>
 			<string>Local path or http(s) URL to a file that is the accessory to display when performing macOS updates</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryMacOSMinorUpdateFile</string>
 			<key>pfm_title</key>
-			<string>Minor Updates Updates Accessory File</string>
+			<string>Minor Updates Accessory File</string>
 			<key>pfm_type</key>
 			<string>string</string>
 			<key>pfm_value_placeholder</key>
@@ -755,6 +774,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>5.0</string>
 			<key>pfm_description</key>
 			<string>Local path or http(s) URL to a file that is the accessory to display when the InstallNonSystemUpdatesWithoutRestarting payload option is also enabled and the workflow target is only non-system updates</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryNonSystemUpdatesFile</string>
 			<key>pfm_title</key>
@@ -766,9 +787,27 @@ During a profile replacement, the system updates payloads with the same 'Payload
 		</dict>
 		<dict>
 			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Local path or http(s) URL to a file that is the accessory to display when Safari updates without restarting are applicable</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
+			<key>pfm_name</key>
+			<string>DisplayAccessorySafariUpdateFile</string>
+			<key>pfm_title</key>
+			<string>Safari Update Accessory File</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>https://example.com/sample.png</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
 			<string>5.0</string>
 			<key>pfm_description</key>
 			<string>Local path or http(s) URL to a file that is the accessory to display when the WorkflowRestartWithoutUpdates payload option is also enabled and the workflow target is only a forced restart without any updates</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Display-Customization#display-accessory-contents</string>
 			<key>pfm_name</key>
 			<string>DisplayAccessoryRestartWithoutUpdatesFile</string>
 			<key>pfm_title</key>
@@ -986,13 +1025,15 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<key>pfm_app_min</key>
 			<string>4.0</string>
 			<key>pfm_default</key>
-			<true/>
+			<false/>
 			<key>pfm_description</key>
 			<string>Mode to validate parameters, credentials, notifications, dialogs, deferrals, and deadline logic</string>
 			<key>pfm_documentation_url</key>
 			<string>https://github.com/Macjutsu/super/wiki/Testing-And-Validation#test-mode</string>
 			<key>pfm_name</key>
 			<string>TestMode</string>
+			<key>pfm_note</key>
+			<string>Leave disabled in production profiles; use only while validating behavior per the Testing And Validation wiki</string>
 			<key>pfm_title</key>
 			<string>Test Mode</string>
 			<key>pfm_type</key>
@@ -1031,6 +1072,76 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>string</string>
 			<key>pfm_value_placeholder</key>
 			<string>DAY:hh:mm-hh:mm,DAY:hh:mm-hh:mm</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Path to a file that must exist before the super workflow proceeds. If the file is missing, super defers or exits per deferral settings. Corresponds to --schedule-deferred-start-file</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Workflow-Schedule-Behavior</string>
+			<key>pfm_note</key>
+			<string>Super 5.1+; see managed preference migration table at https://github.com/Macjutsu/super/blob/main/Super-Friends/super-migration-managed-preferences-v5.1.0.tsv</string>
+			<key>pfm_name</key>
+			<string>ScheduleDeferredStartFile</string>
+			<key>pfm_title</key>
+			<string>Schedule Deferred Start File</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>/var/db/.superDeferredStart</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Number of days after the workflow zero date before the workflow may proceed (1-90). Corresponds to --schedule-deferred-start-days. If ScheduleZeroDateManual is set, it takes priority over this option</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Workflow-Schedule-Behavior</string>
+			<key>pfm_note</key>
+			<string>Super 5.1+; see managed preference migration table at https://github.com/Macjutsu/super/blob/main/Super-Friends/super-migration-managed-preferences-v5.1.0.tsv</string>
+			<key>pfm_name</key>
+			<string>ScheduleDeferredStartDays</string>
+			<key>pfm_title</key>
+			<string>Schedule Deferred Start Days</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>7</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>When using alternate workflow configurations, require the plist to match this code signing identifier (team ID or signing identity substring). Prevents loading unsigned or unexpected configs. Set to the string FALSE in managed preferences to disable the check (default when unset)</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Configure-Settings#mdm-configuration-profile</string>
+			<key>pfm_name</key>
+			<string>ConfigCodeSignature</string>
+			<key>pfm_note</key>
+			<string>Super treats the literal FALSE as disabling validation; use the string form if your MDM emits string preferences</string>
+			<key>pfm_title</key>
+			<string>Config Code Signature</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>Developer ID Application: Example (TEAMID)</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_default</key>
+			<false/>
+			<key>pfm_description</key>
+			<string>When false (default), managed workflow preferences override conflicting settings in a temporary alternate configuration. When true, that behavior is reversed so the temporary configuration can override managed settings</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Configure-Settings#mdm-configuration-profile</string>
+			<key>pfm_name</key>
+			<string>ConfigTempOverride</string>
+			<key>pfm_title</key>
+			<string>Config Temporary Override Precedence</string>
+			<key>pfm_type</key>
+			<string>boolean</string>
 		</dict>
 		<dict>
 			<key>pfm_app_min</key>
@@ -1127,22 +1238,6 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>string</string>
 			<key>pfm_value_placeholder</key>
 			<string>https://sofa.example.domain.com/v1/macos_data_feed.json</string>
-		</dict>
-		<dict>
-			<key>pfm_app_min</key>
-			<string>4.0</string>
-			<key>pfm_description</key>
-			<string>Sets an automatic timeout for the restart or defer dialog in seconds</string>
-			<key>pfm_documentation_url</key>
-			<string>https://github.com/Macjutsu/super/wiki/Dialog-Timeouts/3d44b40dc47dd940f5edda8bbabedfacbb79970b#restart-or-defer-dialog-timeout</string>
-			<key>pfm_name</key>
-			<string>DialogTimeoutRestartOrDefer</string>
-			<key>pfm_note</key>
-			<string>Timeouts less than 60 seconds or more than 86400 seconds (1 day) are rounded accordingly</string>
-			<key>pfm_title</key>
-			<string>Dialog Timeout Restart Or Defer</string>
-			<key>pfm_type</key>
-			<string>string</string>
 		</dict>
 		<dict>
 			<key>pfm_app_min</key>
@@ -1385,6 +1480,8 @@ During a profile replacement, the system updates payloads with the same 'Payload
 		<dict>
 			<key>pfm_app_min</key>
 			<string>4.0</string>
+			<key>pfm_app_max</key>
+			<string>5.0.99</string>
 			<key>pfm_description</key>
 			<string>Limit the installation of macOS major upgrade versions to the major (whole number) version specified in this option. This option requires that you have also specified the InstallMacOSMajorUpgrades option</string>
 			<key>pfm_documentation_url</key>
@@ -1397,6 +1494,92 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>string</string>
 			<key>pfm_value_placeholder</key>
 			<string>14</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Limit macOS major upgrades to the specified macOS version string. Requires InstallMacOSMajorUpgrades. Super 5.1+ accepts a full version number (for example 15.2); super 5.0.x accepts the major version number only</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/macOS-Updates-and-Upgrades#target-macos-major-upgrade-version</string>
+			<key>pfm_name</key>
+			<string>InstallMacOSMajorVersionTarget</string>
+			<key>pfm_title</key>
+			<string>Install MacOS Major Version Target</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>15.2</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Limit macOS minor (point) updates to the specified macOS version string (for example 15.6.1). Corresponds to --install-macos-minor-version-target</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/macOS-Updates-and-Upgrades</string>
+			<key>pfm_name</key>
+			<string>InstallMacOSMinorVersionTarget</string>
+			<key>pfm_note</key>
+			<string>Super 5.1+; see https://github.com/Macjutsu/super/blob/main/Super-Friends/super-migration-managed-preferences-v5.1.0.tsv</string>
+			<key>pfm_title</key>
+			<string>Install macOS Minor Version Target</string>
+			<key>pfm_type</key>
+			<string>string</string>
+			<key>pfm_value_placeholder</key>
+			<string>15.6.1</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_description</key>
+			<string>Allow the super workflow to install macOS Background Security Improvement (BSI) updates. Supersedes InstallRapidSecurityResponses in super 5.1+</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/macOS-Updates-and-Upgrades</string>
+			<key>pfm_name</key>
+			<string>InstallMacOSBSIUpdates</string>
+			<key>pfm_note</key>
+			<string>When neither this key nor InstallRapidSecurityResponses is set, super 5.1 does not force BSI installs (see super.log when applicable). When migrating from earlier versions, prefer this key over InstallRapidSecurityResponses. See https://github.com/Macjutsu/super/blob/main/Super-Friends/super-migration-managed-preferences-v5.1.0.tsv</string>
+			<key>pfm_title</key>
+			<string>Install macOS BSI Updates</string>
+			<key>pfm_type</key>
+			<string>boolean</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_default</key>
+			<false/>
+			<key>pfm_description</key>
+			<string>When non-restart updates are allowed, install Safari updates without requiring a restart when possible. Corresponds to --install-safari-updates-without-restarting</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Install-Non-System-Items#install-non-system-apple-software-updates-without-restarting</string>
+			<key>pfm_name</key>
+			<string>InstallSafariUpdatesWithoutRestarting</string>
+			<key>pfm_note</key>
+			<string>Super 5.1+; works with non-system update workflows described on the Install Non System Items wiki page</string>
+			<key>pfm_title</key>
+			<string>Install Safari Updates Without Restarting</string>
+			<key>pfm_type</key>
+			<string>boolean</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_default</key>
+			<false/>
+			<key>pfm_description</key>
+			<string>Prioritize installation of updates that do not require a restart. Corresponds to --install-prioritize-non-restart-updates</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Install-Non-System-Items#install-non-system-apple-software-updates-without-restarting</string>
+			<key>pfm_name</key>
+			<string>InstallPrioritizeNonRestartUpdates</string>
+			<key>pfm_note</key>
+			<string>Super requires either InstallNonSystemUpdatesWithoutRestarting or InstallSafariUpdatesWithoutRestarting to also be enabled</string>
+			<key>pfm_title</key>
+			<string>Install Prioritize Non-Restart Updates</string>
+			<key>pfm_type</key>
+			<string>boolean</string>
 		</dict>
 		<dict>
 			<key>pfm_app_min</key>
@@ -1416,7 +1599,7 @@ During a profile replacement, the system updates payloads with the same 'Payload
 				</dict>
 			</array>
 			<key>pfm_default</key>
-			<true/>
+			<false/>
 			<key>pfm_description</key>
 			<string>If there are no pending restart-required macOS updates or upgrades, make the super workflow install non-system Apple software updates as soon as they become available</string>
 			<key>pfm_documentation_url</key>
@@ -1432,13 +1615,15 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<key>pfm_app_min</key>
 			<string>4.0</string>
 			<key>pfm_default</key>
-			<true/>
+			<false/>
 			<key>pfm_description</key>
 			<string>Allow the super workflow to install macOS Rapid Security Response (RSR) updates</string>
 			<key>pfm_documentation_url</key>
 			<string>https://github.com/Macjutsu/super/wiki/macOS-Updates-and-Upgrades#install-macos-rapid-security-responses</string>
 			<key>pfm_name</key>
 			<string>InstallRapidSecurityResponses</string>
+			<key>pfm_note</key>
+			<string>Opt-in per wiki. Super 5.1+ deprecates this CLI/pref in favor of InstallMacOSBSIUpdates; if only this key is set (managed or local), super 5.1 maps its value into BSI handling</string>
 			<key>pfm_title</key>
 			<string>Install Rapid Security Responses</string>
 			<key>pfm_type</key>
@@ -1489,6 +1674,24 @@ During a profile replacement, the system updates payloads with the same 'Payload
 			<string>WorkflowOnlyDownload</string>
 			<key>pfm_title</key>
 			<string>Workflow Only Download</string>
+			<key>pfm_type</key>
+			<string>boolean</string>
+		</dict>
+		<dict>
+			<key>pfm_app_min</key>
+			<string>5.1</string>
+			<key>pfm_default</key>
+			<false/>
+			<key>pfm_description</key>
+			<string>Require a logged-in user before the workflow continues; if none, super defers and retries. Corresponds to --workflow-require-active-user</string>
+			<key>pfm_documentation_url</key>
+			<string>https://github.com/Macjutsu/super/wiki/Alternate-Workflows</string>
+			<key>pfm_name</key>
+			<string>WorkflowRequireActiveUser</string>
+			<key>pfm_note</key>
+			<string>Super 5.1+ (--workflow-require-active-user). Not yet a dedicated wiki section; see Alternate Workflows and script usage output</string>
+			<key>pfm_title</key>
+			<string>Workflow Require Active User</string>
 			<key>pfm_type</key>
 			<string>boolean</string>
 		</dict>
